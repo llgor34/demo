@@ -1,0 +1,38 @@
+<h2 class="card-title text-center">Sprawdź aktualną wartość waluty:</h2>
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="mt-5">
+  <app-form-control
+    label="Wprowadź kod waluty"
+    controlName="currency"
+    id="currency"
+    classList="mb-3"
+  ></app-form-control>
+  <div class="row mb-3">
+    <app-form-control
+      label="Imię"
+      controlName="name"
+      id="name"
+      classList="col-12 col-sm-6"
+    ></app-form-control>
+    <app-form-control
+      label="Nazwisko"
+      controlName="surname"
+      id="surname"
+      classList="col-12 col-sm-6"
+    ></app-form-control>
+  </div>
+  <button [disabled]="form.invalid" type="submit" class="btn btn-primary w-100">
+    Odczytaj dane
+  </button>
+</form>
+@if(isLoading() || currencyValueRead()) {
+<div class="w-100 d-flex justify-content-center mt-5">
+  @if(isLoading()) {
+  <div class="spinner-border" role="status"></div>
+  } @else {
+  <div class="alert alert-primary" role="alert">
+    Odczytana wartość dla zadanej waluty:
+    <span class="fw-bold">{{ currencyValueRead() }}</span>
+  </div>
+  }
+</div>
+}

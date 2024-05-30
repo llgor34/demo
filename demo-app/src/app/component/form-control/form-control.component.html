@@ -1,0 +1,9 @@
+<div [class]="classList()">
+  <label class="form-label" [for]="id()">{{ label() }}</label>
+  <input
+    [formControlName]="controlName()!"
+    type="text"
+    class="form-control"
+    [id]="id()"
+  />
+</div>

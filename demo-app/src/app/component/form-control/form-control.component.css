@@ -1,0 +1,8 @@
+:host {
+  display: contents;
+}
+
+div {
+  margin: inherit;
+  padding: inherit;
+}
