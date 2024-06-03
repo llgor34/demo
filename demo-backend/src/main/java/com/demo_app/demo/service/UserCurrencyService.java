@@ -3,7 +3,6 @@ package com.demo_app.demo.service;
 import com.demo_app.demo.entity.UserCurrencyAccess;
 import com.demo_app.demo.model.UserCurrencyAccessDTO;
 import com.demo_app.demo.repository.UserCurrencyAccessRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class UserCurrencyService {
         userCurrencyAccessRepository.save(userCurrencyAccess);
     }
 
-    public List<UserCurrencyAccessDTO> getAllUserCurrencyAccess() {
+    public List<UserCurrencyAccessDTO> getAllUserCurrencyAccessDTO() {
         List<UserCurrencyAccess> userCurrencyAccessList = userCurrencyAccessRepository.findAll();
         return userCurrencyAccessList.stream().map(mapUserCurrencyAccessToDTO()).toList();
     }

@@ -24,15 +24,13 @@
     Odczytaj dane
   </button>
 </form>
-@if(isLoading() || currencyValueRead()) {
 <div class="w-100 d-flex justify-content-center mt-5">
   @if(isLoading()) {
   <div class="spinner-border" role="status"></div>
-  } @else {
+  } @if(currencyValueRead()) {
   <div class="alert alert-primary" role="alert">
     Odczytana wartość dla zadanej waluty:
     <span class="fw-bold">{{ currencyValueRead() }}</span>
   </div>
   }
 </div>
-}

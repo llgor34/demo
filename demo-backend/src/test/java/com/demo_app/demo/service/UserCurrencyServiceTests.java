@@ -26,33 +26,61 @@ public class UserCurrencyServiceTests {
 
     @Test
     public void saveUserCurrencyAccessShouldCallRepositorySave() {
-        userCurrencyService.saveUserCurrencyAccess("Bob bob", "USD", 3.50);
-        Mockito.verify(userCurrencyAccessRepository).save(Mockito.any(UserCurrencyAccess.class));
+        UserCurrencyAccess userCurrencyAccess = getMockUserCurrencyAccess();
+
+        userCurrencyService.saveUserCurrencyAccess(userCurrencyAccess.getName(), userCurrencyAccess.getCurrency(), userCurrencyAccess.getValue());
+        Mockito.verify(userCurrencyAccessRepository).save(userCurrencyAccess);
     }
 
     @Test
-    public void getAllUserCurrencyAccessShouldCallRepositoryFindAll() {
-        userCurrencyService.getAllUserCurrencyAccess();
+    public void getAllUserCurrencyAccessShouldCallRepositoryFindAllDTO() {
+        userCurrencyService.getAllUserCurrencyAccessDTO();
         Mockito.verify(userCurrencyAccessRepository).findAll();
     }
 
     @Test
-    public void getAllUserCurrencyAccessShouldReturnList() {
-        List<UserCurrencyAccess> userCurrencyAccessList = new ArrayList<>();
-        UserCurrencyAccess userCurrencyAccess = new UserCurrencyAccess();
+    public void getAllUserCurrencyAccessDTOShouldReturnList() {
+        List<UserCurrencyAccess> userCurrencyAccessList = getMockUserCurrencyAccessList();
+        List<UserCurrencyAccessDTO> userCurrencyAccessDTOList = getMockUserCurrencyAccessDTOList();
 
-        userCurrencyAccess.setCurrency("USD");
-        userCurrencyAccess.setId(1l);
-        userCurrencyAccessList.add(userCurrencyAccess);
-
-        List<UserCurrencyAccessDTO> userCurrencyAccessDTOList = new ArrayList<>();
-        UserCurrencyAccessDTO userCurrencyAccessDTO = new UserCurrencyAccessDTO();
-        userCurrencyAccessDTO.setCurrency("USD");
-        userCurrencyAccessDTOList.add(userCurrencyAccessDTO);
 
         Mockito.when(userCurrencyAccessRepository.findAll()).thenReturn(userCurrencyAccessList);
-        var userCurrencyAccessDTOListReturned = userCurrencyService.getAllUserCurrencyAccess();
+        var userCurrencyAccessDTOListReturned = userCurrencyService.getAllUserCurrencyAccessDTO();
 
         assertEquals(userCurrencyAccessDTOListReturned, userCurrencyAccessDTOList);
+    }
+
+    private List<UserCurrencyAccess> getMockUserCurrencyAccessList() {
+        List<UserCurrencyAccess> userCurrencyAccessList = new ArrayList<>();
+        UserCurrencyAccess userCurrencyAccess = getMockUserCurrencyAccess();
+        userCurrencyAccessList.add(userCurrencyAccess);
+
+        return userCurrencyAccessList;
+    }
+
+    private List<UserCurrencyAccessDTO> getMockUserCurrencyAccessDTOList() {
+        List<UserCurrencyAccessDTO> userCurrencyAccessDTOList = new ArrayList<>();
+        UserCurrencyAccessDTO userCurrencyAccessDTO = getMockUserCurrencyAccessDTO();
+        userCurrencyAccessDTOList.add(userCurrencyAccessDTO);
+
+        return userCurrencyAccessDTOList;
+    }
+
+    private UserCurrencyAccess getMockUserCurrencyAccess() {
+        UserCurrencyAccess userCurrencyAccess = new UserCurrencyAccess();
+        userCurrencyAccess.setName("John Doe");
+        userCurrencyAccess.setCurrency("USD");
+        userCurrencyAccess.setValue(3.5);
+
+        return userCurrencyAccess;
+    }
+
+    private UserCurrencyAccessDTO getMockUserCurrencyAccessDTO() {
+        UserCurrencyAccessDTO userCurrencyAccessDTO = new UserCurrencyAccessDTO();
+        userCurrencyAccessDTO.setName("John Doe");
+        userCurrencyAccessDTO.setCurrency("USD");
+        userCurrencyAccessDTO.setValue(3.5);
+
+        return userCurrencyAccessDTO;
     }
 }

@@ -29,8 +29,12 @@ public class NBPCurrencyService {
     }
 
     public List<CurrencyValueNBPRate> getNBPCurrencies() {
+        return getNBPCurrencies("https://api.nbp.pl/api/exchangerates/tables/A?format=json");
+    }
+
+    public List<CurrencyValueNBPRate> getNBPCurrencies(String baseUrl) {
         WebClient client = WebClient.create();
-        WebClient.ResponseSpec responseSpec = client.get().uri("https://api.nbp.pl/api/exchangerates/tables/A?format=json").retrieve();
+        WebClient.ResponseSpec responseSpec = client.get().uri(baseUrl).retrieve();
         CurrencyValueNBPObject[] response = responseSpec.bodyToMono(CurrencyValueNBPObject[].class).block();
 
         CurrencyValueNBPRate[] currencies = response[0].getRates();

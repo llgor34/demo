@@ -33,7 +33,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/requests")
-    public List<UserCurrencyAccessDTO> getUserCurrencyAccess() {
-        return userCurrencyService.getAllUserCurrencyAccess();
+    public List<UserCurrencyAccessDTO> getUserCurrencyAccessDTO() {
+        return userCurrencyService.getAllUserCurrencyAccessDTO();
     }
 }
